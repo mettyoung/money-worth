@@ -44,6 +44,22 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.cupertino)
+            implementation(libs.navigator)
+//
+//            // Screen Model
+//            implementation(libs.voyager-screenmodel)
+//
+//            // BottomSheetNavigator
+//            implementation(libs.voyager-bottom-sheet-navigator)
+//
+//            // TabNavigator
+//            implementation(libs.voyager-tab-navigator)
+//
+//            // Transitions
+//            implementation(libs.voyager-transitions)
+//
+//            // Koin integration
+//            implementation(libs.voyager-koin)
         }
     }
 }
