@@ -17,7 +17,7 @@ object OverviewTab : Tab {
     @Composable
     override fun Content() {
         Column(modifier = Modifier.fillMaxSize()) {
-            Text("This is Stats")
+            Text("This is Overview")
         }
     }
 
