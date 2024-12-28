@@ -1,4 +1,4 @@
-package com.mettyoung.habitrabbit
+package com.mettyoung.habbit
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape

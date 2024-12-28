@@ -1,4 +1,4 @@
-rootProject.name = "HabitRabbit"
+rootProject.name = "Habbit"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {

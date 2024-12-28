@@ -1,4 +1,4 @@
-package com.mettyoung.habitrabbit.screens
+package com.mettyoung.habbit.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize

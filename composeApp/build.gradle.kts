@@ -51,11 +51,11 @@ kotlin {
 }
 
 android {
-    namespace = "com.mettyoung.habitrabbit"
+    namespace = "com.mettyoung.habbit"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.mettyoung.habitrabbit"
+        applicationId = "com.mettyoung.habbit"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1

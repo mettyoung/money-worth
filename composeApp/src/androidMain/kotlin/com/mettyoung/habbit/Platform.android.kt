@@ -1,4 +1,4 @@
-package com.mettyoung.habitrabbit
+package com.mettyoung.habbit
 
 import android.os.Build
 

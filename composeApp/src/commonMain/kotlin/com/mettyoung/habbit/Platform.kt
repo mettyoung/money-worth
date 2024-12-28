@@ -1,4 +1,4 @@
-package com.mettyoung.habitrabbit
+package com.mettyoung.habbit
 
 interface Platform {
     val name: String
