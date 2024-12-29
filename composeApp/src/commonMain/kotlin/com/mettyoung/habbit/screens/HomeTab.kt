@@ -23,7 +23,7 @@ object HomeTab : Tab {
     override val options: TabOptions
         @Composable
         get() {
-            val icon = rememberVectorPainter(Icons.Default.Home)
+            val icon = rememberVectorPainter(Icons.Filled.Home)
 
             return remember {
                 TabOptions(
