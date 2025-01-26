@@ -1,7 +1,9 @@
 package com.mettyoung.habbit
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Text
@@ -36,8 +38,11 @@ fun App() {
             ) {
                 TabNavigator(HomeTab) { navigator ->
                     Scaffold(
-                        topBar = { TopBar() },
-                        content = { CurrentTab() },
+                        content = { paddingValues ->
+                            Column(modifier = Modifier.padding(paddingValues)) {
+                                CurrentTab()
+                            }
+                        },
                         bottomBar = {
                             BottomNavigation {
                                 TabNavigationItem(HomeTab)
@@ -49,11 +54,6 @@ fun App() {
             }
         }
     }
-}
-
-@Composable
-private fun TopBar() {
-    TopAppBar(title = { Text("Habbit") })
 }
 
 @Composable
