@@ -17,29 +17,35 @@ import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
+import com.mettyoung.habbit.features.habits.habitsModule
 import com.mettyoung.habitrabbit.screens.HomeTab
 import com.mettyoung.habitrabbit.screens.OverviewTab
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.KoinApplication
 
 @Composable
 @Preview
 fun App() {
-    MyApplicationTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
-        ) {
-            TabNavigator(HomeTab) { navigator ->
-                Scaffold(
-                    topBar = { TopBar() },
-                    content = { CurrentTab() },
-                    bottomBar = {
-                        BottomNavigation {
-                            TabNavigationItem(HomeTab)
-                            TabNavigationItem(OverviewTab)
+    KoinApplication(application = {
+        modules(habitsModule)
+    }) {
+        MyApplicationTheme {
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.background
+            ) {
+                TabNavigator(HomeTab) { navigator ->
+                    Scaffold(
+                        topBar = { TopBar() },
+                        content = { CurrentTab() },
+                        bottomBar = {
+                            BottomNavigation {
+                                TabNavigationItem(HomeTab)
+                                TabNavigationItem(OverviewTab)
+                            }
                         }
-                    }
-                )
+                    )
+                }
             }
         }
     }
