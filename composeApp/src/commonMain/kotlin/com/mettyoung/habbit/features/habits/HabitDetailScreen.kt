@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -13,6 +12,9 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.mettyoung.habbit.domain.Habit
+import com.mettyoung.habbit.presentation.HabitsViewModel
+import org.koin.compose.koinInject
 
 object HabitDetailScreen : Screen {
 
@@ -24,7 +26,8 @@ object HabitDetailScreen : Screen {
     }
 
     @Composable
-    private fun HabitDetailContent() {
+    private fun HabitDetailContent(viewModel: HabitsViewModel = koinInject()) {
+        val navigator = LocalNavigator.currentOrThrow
         Scaffold(
             topBar = { TopBar() }
         ) { paddingValues ->
@@ -38,7 +41,10 @@ object HabitDetailScreen : Screen {
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(
-                    onClick = { /* handle confirmation logic */ },
+                    onClick = {
+                        viewModel.addHabit(Habit(_id = null, name = habitName))
+                        navigator.pop()
+                    },
                     modifier = Modifier.align(Alignment.End)
                 ) {
                     Text("Confirm")

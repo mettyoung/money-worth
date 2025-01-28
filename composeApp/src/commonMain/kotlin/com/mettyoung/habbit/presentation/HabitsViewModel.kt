@@ -6,7 +6,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class HabitsViewModel : BaseViewModel() {
+class HabitsViewModel(
+    private val useCase: HabitsUseCase
+) : BaseViewModel() {
 
     private val _state: MutableStateFlow<RequestState<Habit>> =
         MutableStateFlow(RequestState(loading = true))
@@ -19,12 +21,15 @@ class HabitsViewModel : BaseViewModel() {
 
     fun getHabits(forceFetch: Boolean = false) {
         scope.launch {
-            _state.emit(RequestState(data = listOf(
-                Habit("1", "habit one"),
-                Habit("2", "habit two"),
-                Habit("3", "habit three"),
-                Habit("4", "habit four")
-            )))
+            _state.emit(RequestState(loading = true, data = _state.value.data))
+
+            val fetchedHabits = useCase.getHabits(forceFetch)
+
+            _state.emit(RequestState(data = fetchedHabits))
         }
     }
+
+    fun addHabit(habit: Habit): Boolean = scope.launch {
+        useCase.addHabit(habit)
+    }.isCompleted
 }

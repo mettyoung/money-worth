@@ -13,7 +13,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
@@ -27,12 +29,12 @@ object HabitsListScreen : Screen {
     @Composable
     override fun Content() {
         Column {
-            HabitTabContent()
+            HabitsListScreenContent()
         }
     }
 
     @Composable
-    fun HabitTabContent(viewModel: HabitsViewModel = koinInject()) {
+    fun HabitsListScreenContent(viewModel: HabitsViewModel = koinInject()) {
         val state = viewModel.state.collectAsState()
         val navigator = LocalNavigator.currentOrThrow
 
@@ -59,7 +61,7 @@ object HabitsListScreen : Screen {
 
     @Composable
     private fun AppBar() {
-        TopAppBar(title = { Text("Habbit") })
+        TopAppBar(title = { Text("Your Habits") })
     }
 
     @OptIn(ExperimentalMaterialApi::class)
@@ -92,7 +94,7 @@ object HabitsListScreen : Screen {
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
-            Text(text = habit.name)
+            Text(text = habit.name, style = TextStyle(fontSize = 22.sp))
         }
     }
 }
