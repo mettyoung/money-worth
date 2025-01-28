@@ -95,5 +95,4 @@ object HabitsListScreen : Screen {
             Text(text = habit.name)
         }
     }
-
 }
