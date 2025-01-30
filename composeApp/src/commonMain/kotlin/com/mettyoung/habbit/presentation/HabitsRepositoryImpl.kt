@@ -10,4 +10,9 @@ class HabitsRepositoryImpl : HabitsRepository {
     }
 
     override suspend fun addHabit(habit: Habit) = habits.add(habit)
+
+    override suspend fun deleteHabit(index: Int): Boolean = habits.removeAt(index).let { true }
+
+    override suspend fun checkHabit(habit: Habit): Boolean = habits.find { it == habit }
+        ?.let { it.currentCount++ } != null
 }

@@ -32,4 +32,12 @@ class HabitsViewModel(
     fun addHabit(habit: Habit): Boolean = scope.launch {
         useCase.addHabit(habit)
     }.isCompleted
+
+    fun deleteHabit(index: Int) : Boolean = scope.launch {
+        useCase.deleteHabit(index)
+    }.isCompleted
+
+    fun checkHabit(habit: Habit) : Boolean = scope.launch {
+        useCase.checkHabit(habit)
+    }.isCompleted
 }

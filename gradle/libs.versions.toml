@@ -16,6 +16,8 @@ junit = "4.13.2"
 kotlin = "2.1.0"
 voyager = "1.1.0-beta02"
 koin-bom = "4.0.2"
+swipebox = "1.2.0"
+
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -38,6 +40,7 @@ koin-core = { group = "io.insert-koin", name = "koin-core" }
 koin-compose = { group = "io.insert-koin", name = "koin-compose" }
 koin-compose-viewmodel = { group = "io.insert-koin", name = "koin-compose-viewmodel" }
 koin-compose-viewmodel-navigation = { group = "io.insert-koin", name = "koin-compose-viewmodel-navigation"}
+compose-swipebox = { group = "io.github.kevinnzou", name = "compose-swipebox-multiplatform", version.ref = "swipebox" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
