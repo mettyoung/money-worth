@@ -19,9 +19,9 @@ import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
-import com.mettyoung.moneyworth.features.habits.habitsModule
 import com.mettyoung.habitrabbit.screens.HomeTab
 import com.mettyoung.habitrabbit.screens.OverviewTab
+import com.mettyoung.moneyworth.features.transactions.transactionsModule
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
 
@@ -29,7 +29,7 @@ import org.koin.compose.KoinApplication
 @Preview
 fun App() {
     KoinApplication(application = {
-        modules(habitsModule)
+        modules(transactionsModule)
     }) {
         MyApplicationTheme {
             Surface(

@@ -1,4 +1,4 @@
-package com.mettyoung.moneyworth.features.habits
+package com.mettyoung.moneyworth.features.transactions
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -14,41 +14,41 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.mettyoung.moneyworth.domain.Habit
-import com.mettyoung.moneyworth.presentation.HabitsViewModel
+import com.mettyoung.moneyworth.domain.Transaction
+import com.mettyoung.moneyworth.presentation.TransactionsViewModel
 import org.koin.compose.koinInject
 
-object HabitDetailScreen : Screen {
+object TransactionDetailScreen : Screen {
 
     @Composable
     override fun Content() {
         Column {
-            HabitDetailContent()
+            TransactionDetailContent()
         }
     }
 
     @Composable
-    private fun HabitDetailContent(viewModel: HabitsViewModel = koinInject()) {
+    private fun TransactionDetailContent(viewModel: TransactionsViewModel = koinInject()) {
         val navigator = LocalNavigator.currentOrThrow
         Scaffold(
             topBar = { TopBar() }
         ) { paddingValues ->
             Column(modifier = Modifier.padding(paddingValues)) {
-                var habitName by remember { mutableStateOf("") }
-                var habitNumberOfTimes by remember { mutableStateOf("") }
+                var transactionName by remember { mutableStateOf("") }
+                var transactionNumberOfTimes by remember { mutableStateOf("") }
 
                 TextField(
-                    value = habitName,
-                    onValueChange = { habitName = it },
-                    label = { Text("Habit Name") },
+                    value = transactionName,
+                    onValueChange = { transactionName = it },
+                    label = { Text("Transaction Name") },
                     modifier = Modifier.fillMaxWidth()
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
 
                 TextField(
-                    value = habitNumberOfTimes,
-                    onValueChange = { habitNumberOfTimes = it },
+                    value = transactionNumberOfTimes,
+                    onValueChange = { transactionNumberOfTimes = it },
                     label = { Text("Number of Times") },
                     modifier = Modifier.fillMaxWidth(),
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
@@ -58,8 +58,14 @@ object HabitDetailScreen : Screen {
 
                 Button(
                     onClick = {
-                        val numberOfTimes = habitNumberOfTimes.toIntOrNull() ?: 0
-                        viewModel.addHabit(Habit(_id = null, name = habitName, totalCount = numberOfTimes))
+                        val numberOfTimes = transactionNumberOfTimes.toIntOrNull() ?: 0
+                        viewModel.addTransaction(
+                            Transaction(
+                                _id = null,
+                                name = transactionName,
+                                totalCount = numberOfTimes
+                            )
+                        )
                         navigator.pop()
                     },
                     modifier = Modifier.align(Alignment.End)
@@ -77,7 +83,7 @@ object HabitDetailScreen : Screen {
         return TopAppBar(
             title = {
                 Text(
-                    text = "Create new Habit",
+                    text = "Create new Transaction",
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center
                 )

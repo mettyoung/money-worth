@@ -1,4 +1,4 @@
-package com.mettyoung.moneyworth.features.habits
+package com.mettyoung.moneyworth.features.Transaction
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -30,23 +30,24 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import com.kevinnzou.swipebox.SwipeBox
 import com.kevinnzou.swipebox.SwipeDirection
 import com.kevinnzou.swipebox.widget.SwipeIcon
-import com.mettyoung.moneyworth.domain.Habit
-import com.mettyoung.moneyworth.presentation.HabitsViewModel
+import com.mettyoung.moneyworth.domain.Transaction
+import com.mettyoung.moneyworth.features.transactions.TransactionDetailScreen
+import com.mettyoung.moneyworth.presentation.TransactionsViewModel
 import com.mettyoung.moneyworth.screens.elements.ErrorMessage
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 
-object HabitsListScreen : Screen {
+object TransactionListScreen : Screen {
 
     @Composable
     override fun Content() {
         Column {
-            HabitsListScreenContent()
+            TransactionListScreenContent()
         }
     }
 
     @Composable
-    fun HabitsListScreenContent(viewModel: HabitsViewModel = koinInject()) {
+    fun TransactionListScreenContent(viewModel: TransactionsViewModel = koinInject()) {
         val state = viewModel.state.collectAsState()
         val navigator = LocalNavigator.currentOrThrow
 
@@ -57,14 +58,14 @@ object HabitsListScreen : Screen {
                     if (state.value.error != null)
                         ErrorMessage(state.value.error!!)
                     if (state.value.data.isNotEmpty())
-                        HabitsListView(viewModel)
+                        TransactionListView(viewModel)
                 }
             },
             floatingActionButton = {
-                FloatingActionButton(onClick = { navigator.push(HabitDetailScreen) }) {
+                FloatingActionButton(onClick = { navigator.push(TransactionDetailScreen) }) {
                     Icon(
                         imageVector = Icons.Outlined.Add,
-                        contentDescription = "Add Habit"
+                        contentDescription = "Add Transaction"
                     )
                 }
             }
@@ -73,23 +74,23 @@ object HabitsListScreen : Screen {
 
     @Composable
     private fun AppBar() {
-        TopAppBar(title = { Text("Your Habits") })
+        TopAppBar(title = { Text("Your Transaction") })
     }
 
     @OptIn(ExperimentalMaterialApi::class)
     @Composable
-    fun HabitsListView(viewModel: HabitsViewModel) {
+    fun TransactionListView(viewModel: TransactionsViewModel) {
         val state = rememberPullRefreshState(
             refreshing = viewModel.state.value.loading,
-            onRefresh = { viewModel.getHabits(true) }
+            onRefresh = { viewModel.getTransactions(true) }
         )
         Box(
             modifier = Modifier.pullRefresh(state = state)
         ) {
             SwipeBoxList(
                 data = viewModel.state.value.data,
-                onDelete = viewModel::deleteHabit,
-                onCheck = viewModel::checkHabit
+                onDelete = viewModel::deleteTransaction,
+                onCheck = viewModel::checkTransaction
             )
 
             PullRefreshIndicator(
@@ -103,9 +104,9 @@ object HabitsListScreen : Screen {
     @OptIn(ExperimentalMaterialApi::class)
     @Composable
     fun SwipeBoxList(
-        data: List<Habit> = listOf(),
+        data: List<Transaction> = listOf(),
         onDelete: (index: Int) -> Unit = {},
-        onCheck: (habit: Habit) -> Unit = {}
+        onCheck: (transaction: Transaction) -> Unit = {}
     ) {
         val coroutineScope = rememberCoroutineScope()
 
@@ -159,7 +160,7 @@ object HabitsListScreen : Screen {
         ) {
             itemsIndexed(data) { index, item ->
                 Spacer(modifier = Modifier.height(8.dp))
-                HabitItemView(
+                TransactionItemView(
                     item,
                     onDelete = {
                         onDelete(index)
@@ -182,9 +183,9 @@ object HabitsListScreen : Screen {
 
     @OptIn(ExperimentalMaterialApi::class)
     @Composable
-    fun HabitItemView(
-        habit: Habit,
-        onCheck: (habit: Habit) -> Unit = {},
+    fun TransactionItemView(
+        transaction: Transaction,
+        onCheck: (transaction: Transaction) -> Unit = {},
         onDelete: (index: Int) -> Unit = {},
         index: Int,
         onContent: @Composable BoxScope.(swipeableState: SwipeableState<Int>, startSwipeProgress: Float, endSwipeProgress: Float) -> Unit
@@ -210,7 +211,7 @@ object HabitsListScreen : Screen {
                     ) {
                         coroutineScope.launch {
                             swipeableState.animateTo(0)
-                            onCheck(habit)
+                            onCheck(transaction)
                         }
                     }
                 },
@@ -241,14 +242,14 @@ object HabitsListScreen : Screen {
                 ) {
                     Column {
                         Text(
-                            text = habit.name,
+                            text = transaction.name,
                             style = TextStyle(fontSize = 22.sp),
                             color = Color.White,
                             fontWeight = FontWeight.Bold
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            text = "${habit.currentCount}/${habit.totalCount}",
+                            text = "${transaction.currentCount}/${transaction.totalCount}",
                             style = TextStyle(fontSize = 16.sp),
                             color = Color.White
                         )

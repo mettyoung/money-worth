@@ -9,15 +9,13 @@ import cafe.adriel.voyager.navigator.CurrentScreen
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
-import cafe.adriel.voyager.transitions.SlideOrientation
-import cafe.adriel.voyager.transitions.SlideTransition
-import com.mettyoung.moneyworth.features.habits.HabitsListScreen
+import com.mettyoung.moneyworth.features.Transaction.TransactionListScreen
 
 object HomeTab : Tab {
 
     @Composable
     override fun Content() {
-        Navigator(HabitsListScreen) { navigator ->
+        Navigator(TransactionListScreen) { navigator ->
             CurrentScreen()
         }
     }
